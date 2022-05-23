@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Redirect } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
@@ -14,9 +14,9 @@ export class UrlService {
     return createdUrl.save();
   }
 
-  async shortUrl(dto: UrlValidateDto) {
+  async shortUrl(req: UrlValidateDto) {
     const data = {
-      longUrl: dto.longUrl,
+      longUrl: req.longUrl,
       shortUrl: nanoid(),
     };
 
@@ -33,5 +33,18 @@ export class UrlService {
     }
 
     return { shortUrl: data.shortUrl };
+  }
+
+  async baseUrl(params: UrlValidateDto) {
+    const data = await this.urlModel.findOne(params);
+    if (!data)
+      throw new BadRequestException({
+        error: {
+          code: 400,
+          type: 'BAD_REQUEST',
+          description: 'Url not found',
+        },
+      });
+    return { baseUrl: data.longUrl };
   }
 }

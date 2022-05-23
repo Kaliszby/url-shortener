@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Post,
+  Redirect,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -14,7 +17,14 @@ export class UrlController {
   constructor(private urlService: UrlService) {}
 
   @Post()
-  shortLink(@Body() dto: UrlValidateDto) {
-    return this.urlService.shortUrl(dto);
+  async shortLink(@Body() req: UrlValidateDto) {
+    return this.urlService.shortUrl(req);
+  }
+
+  @Get(':shortUrl')
+  @Redirect('http://localhost:3000', 302)
+  async getUrl(@Param() params: UrlValidateDto) {
+    const data = await this.urlService.baseUrl(params);
+    return { url: data.baseUrl };
   }
 }
