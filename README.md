@@ -45,6 +45,9 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Deploy url-shortener on heroku
+https://enigmatic-falls-47772.herokuapp.com/
+
 ## Test
 
 ```bash
