@@ -15,4 +15,8 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "enigmatic-falls-47772"
           heroku_email: "apimuk.pk@gmail.com"
+          MONGO_URI: "mongodb+srv://summer:%2155%4055summer@cluster0.oumzn.mongodb.net/"
+          MONGO_ATLAS_USER: "summer"
+          MONGO_ATLAS_PASSWORD: "%2155%4055summer"
+          MONGO_ATLAS_DB: "test"
           usedocker: true
